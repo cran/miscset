@@ -17,8 +17,10 @@
 #' @param drop Drop grid columns for \code{fun}.
 #' @param cores Number of multicores as \code{mc.cores} in \code{mclapply}.
 #' @param x Object of class \code{gapply}.
+#' @param keyv Character vector for \code{data.table} keys.
+#' 
 #' @seealso
-#' \link{mclapply} 
+#' \link{mclapply}, \link[data.table]{setkeyv}
 #' @examples
 #' #
 #' 
@@ -81,13 +83,25 @@ as.data.frame.gapply <- function (x, ...) {
   if (!any(use))
     stop("No elements are data.frames.")
   x <- x[use]
-  g <- g[use,]
+  g <- g[use, , drop=F]
   g <- split(g, 1:nrow(g))
   ret <- Map(function(x, g) {
     data.frame(as.data.frame(rbind(x), ...), g, stringsAsFactors=F)
   }, x=x, g=g)
   ret <- do.call(rbind, ret)
   row.names(ret) <- NULL
+  return(ret)
+}
+
+#' @rdname gapply
+#' @export as.data.table.gapply
+#' @method as.data.table gapply
+as.data.table.gapply <- function (x, keyv = NULL, ...) {
+  if (!require(data.table))
+    stop("Package data.table not installed.")
+  ret <- as.data.table(as.data.frame(x, ...))
+  if (!is.null(keyv))
+    setkeyv(ret, keyv)
   return(ret)
 }
 
