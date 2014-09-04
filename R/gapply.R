@@ -8,7 +8,8 @@
 #' 
 #' The output of \code{gapply} is a list inheriting from the S3 class gapply which stores
 #' the grid of the original data. Support for subsetting grid entries is not yet
-#' supported.
+#' supported. The function \code{fun} receives the subset of the data frame as
+#' first argument.
 #' 
 #' @param d A data.frame or data.table object.
 #' @param by A character vector with colnames for the grid to subset.
@@ -35,7 +36,7 @@
 #' @author Sven E. Templer (\email{sven.templer@@gmail.com})
 
 #' @export gapply
-gapply <- function (d, by, fun, ..., drop = F, cores = 1) {
+gapply <- function (d, by, fun, ..., drop = TRUE, cores = 1) {
   fun <- match.fun(fun)
   d <- as.data.frame(d, stringsAsFactors=F)
   gr <- lapply(d[,by,drop=F], unique)
@@ -97,42 +98,8 @@ as.data.frame.gapply <- function (x, ...) {
 #' @export as.data.table.gapply
 #' @method as.data.table gapply
 as.data.table.gapply <- function (x, keyv = NULL, ...) {
-  if (!require(data.table))
-    stop("Package data.table not installed.")
   ret <- as.data.table(as.data.frame(x, ...))
   if (!is.null(keyv))
     setkeyv(ret, keyv)
   return(ret)
 }
-
-# gapply <- function (d, g, fun, ..., drop = F, cores = 1) {
-#   if (!require(data.table))
-#     stop("Require package data.table installation.")
-#   if (!is.data.frame(d))
-#     stop("Provide a data.frame. Lists not yet supported.")
-#   if (!is.data.table(d))
-#     d <- data.table(d)
-#   fun <- match.fun(fun)
-#   k <- key(d)
-#   gr <- lapply(d[,g,with=F,drop=F], unique)
-#   gr <- expand.grid(gr, stringsAsFactors=F)
-#   gr <- data.table(gr)
-#   n <- names(d)[!names(d) %in% g]
-#   r <- mclapply(1:nrow(gr), function (i, d, f, g, gr) {
-#     setkeyv(gr, g)
-#     gi <- gr[i,]
-#     setkeyv(gi, g)
-#     setkeyv(d, g)
-#     #return(list(d, gi))
-#     di <- d[gi]
-#     return(di)
-#     if (drop)
-#       di <- di[,n,with=F]
-#     #print(di)
-#     f(di, ...)
-#   }, d=d, gr=gr, f=fun, g=g, mc.cores = cores)
-#   setkeyv(d, k)
-#   attr(r, 'grid') <- gr
-#   class(r) <- c('gapply')
-#   return(r)
-# }
