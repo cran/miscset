@@ -1,9 +1,11 @@
-#' HTML Colours Like ggplot2
-#' 
+#' @name gghcl
+#' @keywords colour palette ggplot
+#' @author Sven E. Templer
+#' @title HTML Colours Like ggplot2
+#' @description 
 #' Calculate HTML colour code from a palette like ggplot2 uses.
-#' 
+#' @details 
 #' See \code{?hcl} for explanation of \code{h}, \code{c} and \code{l}.
-#' 
 #' @param n Numeric value to determine size of palette.
 #' @param sub Numeric vector with values within range from \code{1}
 #' to \code{n} to subset palette.
@@ -28,12 +30,9 @@
 #' # dev.off() # to reset \code{par}
 #' 
 #' #
-#' @name gghcl
-#' @keywords colour palette ggplot
-#' @author Sven E. Templer (\email{sven.templer@@gmail.com})
 
 #' @export gghcl
-gghcl <- function(n, sub = 1:n, h = c(0, 360) +15, c = 100, l = 65, ...) {
+gghcl <- function(n, sub = 1:n, h = c(0, 360) + 15, c = 100, l = 65, ...) {
   h <- seq(h[1], h[2], length = n+1)
   hcl(h, c, l, ...)[sub]  
 }

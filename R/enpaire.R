@@ -1,7 +1,9 @@
-#' Create a Pairwise List from a Matrix
-#' 
+#' @name enpaire
+#' @keywords pairwise matrix
+#' @title Create a Pairwise List from a Matrix
+#' @author Sven E. Templer
+#' @description
 #' Transform a \code{matrix} or \code{dist} object to a pairwise list.
-#' 
 #' @param x Object of class \code{matrix}.
 #' @param upper Logical, return values from upper triangle.
 #' @param lower Logical, return values from lower triangle.
@@ -20,33 +22,27 @@
 #' enpaire(m, lower = FALSE)
 #' 
 #' #
-#' @name enpaire
-#' @keywords pairwise matrix
-#' @author Sven E. Templer (\email{sven.templer@@gmail.com})
 
 #' @rdname enpaire
-#' @export enpaire
+#' @export 
 enpaire <- function (x, ...) {
   UseMethod("enpaire")
 }
 
 #' @rdname enpaire
-#' @method enpaire default
 enpaire.default <- function (x, ...) {
-  stop("x must be of class matrix or dist.")
+  stop("method not defined")
 }
 
 #' @rdname enpaire
-#' @export enpaire.dist
-#' @method enpaire dist
+#' @export 
 enpaire.dist <- function (x, upper = T, lower = T, ...) {
   x <- as.matrix(x)
   NextMethod("enpaire")
 }
 
 #' @rdname enpaire
-#' @export enpaire.matrix
-#' @method enpaire matrix
+#' @export 
 enpaire.matrix <- function (x, upper = T, lower = T, ...) {
   if (!upper & !lower)
     stop("Nothing to return, set at least one of upper/lower TRUE.")
@@ -60,9 +56,9 @@ enpaire.matrix <- function (x, upper = T, lower = T, ...) {
   colnames(pairs) <- c("row", "col")
   u <- l <- NA
   if (upper)
-    l <- t(x)[upper.tri(x)]
-  if (lower)
     u <- t(x)[lower.tri(x)]
+  if (lower)
+    l <- t(x)[upper.tri(x)]
   ret <- data.frame(pairs, lower = l, upper = u, stringsAsFactors = F)
   return(ret)
 }

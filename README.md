@@ -1,9 +1,45 @@
-# miscset
+# miscset [![Travis-CI Build Status](https://travis-ci.org/setempler/miscset.png?branch=master)](https://travis-ci.org/setempler/miscset) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/miscset)](http://cran.r-project.org/package=miscset) [![Downloads](http://cranlogs.r-pkg.org/badges/miscset?color=brightgreen)](http://www.r-pkg.org/pkg/miscset) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%203%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 
-The R package miscset contains a set of miscellaneous R tools to simplify the work with several data types and formats.
+A **[GNU R](http://r-project.org)** package.
 
+### About
 
-> Copyright (C) 2014 Sven E. Templer [sven.templer at gmail dot com]
+A collection of miscellaneous methods to simplify various tasks,
+including plotting, data.frame and matrix transformations, environment
+functions, regular expression methods, and string and logical operations, as
+well as numerical and statistical tools. Most of the methods are simple but
+useful wrappers of common base R functions, which extend S3 generics or
+provide default values for important parameters.
+  
+### Installation
+
+From CRAN:
+
+```r
+install.packages("miscset")
+```
+
+From github (latest version):
+
+```r
+devtools::install_github("setempler/miscset", build_vignettes = TRUE)
+```
+
+### Documentation
+
+For an introduction see the package vignette.
+
+```r
+vignette("miscset")
+```
+
+Also on
+[CRAN](http://cran.r-project.org/web/packages/miscset/vignettes/miscset.pdf) or
+[github](http://htmlpreview.github.io/?https://github.com/setempler/miscset/blob/master/vignettes/miscset.html).
+
+### License 
+
+> Copyright (C) 2016 Sven E. Templer [sven.templer at gmail dot com]
 > 
 > This program is free software: you can redistribute it and/or modify
 > it under the terms of the GNU General Public License as published by
@@ -17,40 +53,3 @@ The R package miscset contains a set of miscellaneous R tools to simplify the wo
 >
 > You should have received a copy of the GNU General Public License
 > along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-
-## Installation
-
-Install the package from the official `CRAN` repositories from within an R session:
-
-```
-install.packages("miscset")
-```
-
-or use the command line tool:
-
-```
-R CMD INSTALL miscset
-```
-
-For the most up-to-date version install the package `devtools` and use the function `install_github`:
-
-```
-install.packages("devtools")
-library(devtools)
-install_github("setempler/miscset")
-```
-
-And to use the package load it with:
-
-```
-library(miscset)
-```
-
-For documentation use the `vignette` function within an R session:
-
-```
-vignette("miscset")
-```
-
-or from the web source at [CRAN](http://cran.r-project.org/web/packages/miscset/vignettes/miscset.pdf) or [github](https://github.com/setempler/miscset/blob/master/vignettes/miscset.pdf) for the respective version.
